@@ -141,7 +141,7 @@ public class ServerService {
 	private void disconnect(ChatMessage message, ObjectOutputStream output){
  		mapOnlines.remove(message.getName());
 
-        	message.setText(" até logo!");
+        	message.setText("desconectou");
 
        		message.setAction(Action.SEND_ONE);
 
