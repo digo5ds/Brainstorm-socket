@@ -139,11 +139,14 @@ public class ServerService {
 		}
 	}
 	private void disconnect(ChatMessage message, ObjectOutputStream output){
+ 		mapOnlines.remove(message.getName());
 
-		mapOnlines.remove(message.getName());	
+        	message.setText(" até logo!");
 
+       		message.setAction(Action.SEND_ONE);
 
-		System.out.println("O usuário: "+message.getName()+" saiu da sala");
+        	sendAll(message);
+
 
 	}
 
