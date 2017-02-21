@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<moveEntry
+		id="org.eclipse.wb.swing.layouts javax.swing.BoxLayout"
+		category="org.eclipse.wb.swing.layouts"
+		nextEntry="org.eclipse.wb.swing.layouts com.jgoodies.forms.layout.FormLayout"/>
+	<moveEntry
+		id="org.eclipse.wb.swing.components javax.swing.JScrollBar"
+		category="org.eclipse.wb.swing.components"
+		nextEntry="org.eclipse.wb.swing.components javax.swing.JProgressBar"/>
+</commands>

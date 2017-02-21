@@ -1,0 +1,112 @@
+package service;
+
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import bean.ChatMessage;
+import bean.ChatMessage.Action;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+
+public class ServerService {
+	private ServerSocket serverSocket;
+	private Socket socket;
+	private Map<String, ObjectOutputStream> mapOnlines = new HashMap<String, ObjectOutputStream>();
+
+
+
+	public ServerService() {
+		try {
+			serverSocket = new ServerSocket(5555);
+
+			System.out.println("Servidor on!");
+
+			while (true) {
+				socket = serverSocket.accept();
+
+				new Thread(new ListenerSocket(socket)).start();
+			}
+
+		} catch (IOException ex) {
+			Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	private class ListenerSocket implements Runnable {
+
+		private ObjectOutputStream output;
+		private ObjectInputStream input;
+
+		public ListenerSocket(Socket socket) {
+			try {
+				this.output = new ObjectOutputStream(socket.getOutputStream());
+				this.input = new ObjectInputStream (socket.getInputStream());
+			} catch (IOException ex) {
+				Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		@Override
+		public void run() {
+
+			ChatMessage message = null;
+
+
+			try {
+				while ((message = (ChatMessage) input.readObject()) != null) {
+					Action action =  message.getAction();
+
+					if(action.equals(Action.CONNECT)){
+						conect(message,output);
+					}else if(action.equals(Action.DISCONNECT)){
+
+					}else if(action.equals(Action.SEND_ONE)){
+
+					}else if(action.equals(Action.SEND_ALL)){
+
+					}else if(action.equals(Action.USERS_ONLINE)){
+
+					}
+
+				}
+			} catch (ClassNotFoundException ex) {
+				Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (IOException ex) {
+				Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+
+	private void conect(ChatMessage message, ObjectOutputStream output){
+		
+		sendOne(message, output);
+
+	}
+	private void sendOne(ChatMessage message, ObjectOutputStream output){
+		
+		try {
+			output.writeObject(message);
+		} catch (IOException ex) {
+            Logger.getLogger(ServerService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+	}
+	private void sendAll(ChatMessage message, ObjectOutputStream output){
+
+	}
+	private void disconnect(ChatMessage message, ObjectOutputStream output){
+
+	}
+
+}
+
+
+
+
