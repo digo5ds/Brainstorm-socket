@@ -116,6 +116,7 @@ public class ClientFrame extends JFrame {
 				txtName.setEnabled(true);
 				btnSair.setEnabled(false);
 				txtMessage.setEnabled(false);
+				service.send(message);
 			}
 		});
 
@@ -138,7 +139,7 @@ public class ClientFrame extends JFrame {
 		panel_1.add(scrollBar);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_2.setBorder(null);
 		panel_2.setBounds(22, 79, 319, 185);
 		contentPane.add(panel_2);
 		
@@ -160,6 +161,7 @@ public class ClientFrame extends JFrame {
 		);
 		
 		txtMessage = new JTextArea();
+		txtMessage.setTabSize(0);
 		scrollPane_1.setViewportView(txtMessage);
 		
 		txtRecive = new JTextArea();
@@ -181,7 +183,7 @@ public class ClientFrame extends JFrame {
 					message.setText(text);
 					message.setAction(Action.SEND_ALL);
 					service.send(message);
-			        txtRecive.append(message.getName() + " diz: " +text + "\n");
+			        txtRecive.append(text );
 				}
 
 				txtMessage.setText("");
@@ -243,8 +245,6 @@ public class ClientFrame extends JFrame {
 	}
 
 
-
-
 	public void conected(ChatMessage message){
 		if(message.getText().equals("NO")){
 			txtName.setText("");
@@ -256,7 +256,6 @@ public class ClientFrame extends JFrame {
 		this.btnSair.setEnabled(true);
 		this.txtMessage.setEnabled(true);
 		this.btsend.setEnabled(true);
-		txtRecive.append(message.getName()+"\n");
 		JOptionPane.showMessageDialog(null,"Você está Conectado");
 	}
 
@@ -270,6 +269,6 @@ public class ClientFrame extends JFrame {
 	}
 
 	private void receive(ChatMessage message) {
-	        this.txtRecive.append(message.getName() + " diz: " + message.getText() + "\n");
+	        this.txtRecive.append(message.getText());
 	    }
 }

@@ -139,13 +139,10 @@ public class ServerService {
 		}
 	}
 	private void disconnect(ChatMessage message, ObjectOutputStream output){
- 		mapOnlines.remove(message.getName());
+		mapOnlines.remove(message.getName());
 
-        	message.setText("desconectou");
-
-       		message.setAction(Action.SEND_ONE);
-
-        	sendAll(message);
+		message.setAction(Action.DISCONNECT);
+		sendAll(message);
 
 
 	}
